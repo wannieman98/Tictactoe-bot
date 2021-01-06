@@ -154,12 +154,12 @@ def play():
                         new_game.mark_board(x,y)
                         new_game.IsGameOver()
 
-            # elif new_game.board.curr_player.name == "computer" and new_game.board.isEnd == False:
-            #     x,y = new_game.board.curr_player.move()
-            #     while not new_game.board.isAvailable(x,y):
-            #         x,y = new_game.board.curr_player.move()
-            #     new_game.mark_board(x,y)
-            #     print(new_game.board.isEnd)
+            elif new_game.board.curr_player.name == "computer" and new_game.board.isEnd == False:
+                x,y = new_game.board.curr_player.move()
+                while not new_game.board.isAvailable(x,y):
+                    x,y = new_game.board.curr_player.move()
+                new_game.mark_board(x,y)
+                print(new_game.board.isEnd)
 
 
             if event.type == pg.KEYDOWN:
