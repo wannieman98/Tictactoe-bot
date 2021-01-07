@@ -28,6 +28,7 @@ class tictactoe:
         self.draw_figure(row, col)
         self.board.playerTurn = 1 if self.board.playerTurn == -1 else -1
         self.board.curr_player = self.board.player1 if self.board.curr_player == self.board.player2 else self.board.player2
+        self.IsGameOver()
 
     def restart(self):
         self.screen.fill(self.backgroud_color)
@@ -129,7 +130,7 @@ class tictactoe:
 
 def play():
     # initialize players
-    p1 = game.HumanPlayer("asdf")
+    p1 = game.computerPlayer()
     p2 = game.HumanPlayer("Wan")
     # initialzie tictactoe
     pg.init()
@@ -147,18 +148,19 @@ def play():
             if event.type == pg.QUIT:
                 sys.exit()
             print(new_game.board.isEnd)
+            # FIXME: for some reason the game does not end immediately when the game ends. 
+            if new_game.board.curr_player.name == "computer" and new_game.board.isEnd == False:
+                x,y = new_game.board.curr_player.move(new_game.board)
+                while not new_game.board.isAvailable(x,y):
+                    x,y = new_game.board.curr_player.move()
+                new_game.mark_board(x,y)
             if new_game.board.curr_player.name != "computer" and new_game.board.isEnd == False:
                 if event.type == pg.MOUSEBUTTONDOWN:
                     x,y = new_game.getXYPosition(event)
                     if new_game.board.isAvailable(x,y):
                         new_game.mark_board(x,y)
-                        new_game.IsGameOver()
 
-            elif new_game.board.curr_player.name == "computer" and new_game.board.isEnd == False:
-                x,y = new_game.board.curr_player.move()
-                while not new_game.board.isAvailable(x,y):
-                    x,y = new_game.board.curr_player.move()
-                new_game.mark_board(x,y)
+            
                 print(new_game.board.isEnd)
 
 
